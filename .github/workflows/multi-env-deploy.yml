@@ -1,0 +1,26 @@
+name: Manual Deployment Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment for deployment'
+        type: choice
+        required: true
+        default: 'dev'
+        options:
+          - dev
+          - staging
+          - prod
+
+jobs:
+  deploy:
+    name: Deploy to Environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Execute deployment message
+        run: |
+          echo "Deploying to the ${{ github.event.inputs.environment }} environment..."
